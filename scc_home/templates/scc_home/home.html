@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Home</title>
+</head>
+<body>
+    <div>
+        <p><a href="{% url 'scc_kaizen:metric_list' %}">Kaizen</a></p>
+    </div>
+    <ul>
+    {% for bookmark in bookmark_list %}
+        <li><a href="{{ bookmark.url }}">{{ bookmark.name }}</a></li>
+    {% endfor %}
+    </ul>
+        <form method="post">
+            {% csrf_token %}
+            {{ bookmark_form }}
+            <button type="submit">Add</button>
+        </form>
+        <a href="{% url 'scc_standard_user:logout' %}">Log Out</a>
+</body>
+</html>

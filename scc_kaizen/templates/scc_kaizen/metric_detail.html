@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Metric Detail</title>
+</head>
+<body>
+    <!-- Link Back to Metrics -->
+    <a href="{% url 'scc_kaizen:metric_list' %}">All Metrics</a>
+
+    <!-- This metric details-->
+    <h3>{{base_metric.name}}</h3>
+
+    <!-- Edit this metric form -->
+    <form method="post">
+        <h4>Update this Metric</h4>
+        {% csrf_token %}
+        <input type="hidden" name="action" value="update_base_metric">
+        {{base_metric_edit_form}}
+        <button type="submit">Update Metric</button>
+    </form>
+    <!-- Add Detail Form -->
+    <form method="post">
+        <h4>Add Detail to be Tracked</h4>
+        {% csrf_token %}
+        <input type="hidden" name="action" value="add_detail_metric">
+        {{detail_metric_form}}
+        <button type="submit">Add Detail</button>
+    </form>
+
+    <!-- Add New Entry -->
+    <form method="post">
+        <h4>Add New Entry</h4>
+        {% csrf_token %}
+        <input type="hidden" name="action" value="add_new_entry">
+        {{record_entry_form}}
+
+        <p><button type="submit">Add Detail</button></p>
+    </form>
+
+
+    <!-- Records and Record Details that apply to this base metric -->
+    <div>
+        <h4>Records</h4>
+        <table>
+            <tr>
+                {% for title in record_table_header %}
+                    <th>{{title}}</th>
+                {% endfor %}
+            </tr>
+            {% for row in record_table_rows %}
+                <tr>
+                    {% for item in row %}
+                        <td>{{item}}</td>
+                    {% endfor %}
+                </tr>
+            {% endfor %}
+        </table>
+    </div>
+
+</body>
+</html>

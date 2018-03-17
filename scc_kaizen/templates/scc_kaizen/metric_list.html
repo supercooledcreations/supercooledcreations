@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Metric List</title>
+</head>
+<body>
+    <a href="{% url 'scc_home:home' %}">Home</a>
+    <form method="post">
+        {% csrf_token %}
+        {{ base_metric_form }}
+        <button type="submit">Add</button>
+    </form>
+
+    <table>
+     {% for metric in metric_list %}
+         <tr>
+             <td><a href="{% url 'scc_kaizen:metric_detail' metric.pk %}">{{ metric.name }}</a></td>
+         </tr>
+    {% endfor %}
+    </table>
+
+</body>
+</html>
