@@ -1,6 +1,5 @@
 # Imports
 import json
-from .base_settings import *
 
 # Excluded from base settings DEBUG, SECRET_KEY, and DATABASES
 
@@ -11,6 +10,7 @@ try:
     DEBUG = production_settings['DEBUG']
     SECRET_KEY = production_settings['SECRET_KEY']
     DATABASES = production_settings['DATABASES']
+    from .base_settings import *
     use_production_settings = True
 
 except FileNotFoundError:
@@ -20,7 +20,7 @@ except FileNotFoundError:
 if not use_production_settings:
     try:
         from .local_settings import *
-
+        from .base_settings import *
     except ImportError:
         print("No settings found")
 
