@@ -1,10 +1,20 @@
 # Imports
 # Django
 from django import forms
+from django.conf import settings
 from django.utils import timezone
 
 # App
-from .models import BaseMetric, DetailMetric, BooleanRecord, IntegerRecord, FloatRecord, TimeRecord, DurationRecord, CharacterRecord
+from .models import (
+    BaseMetric,
+    DetailMetric,
+    BooleanRecord,
+    IntegerRecord,
+    FloatRecord,
+    TimeRecord,
+    DurationRecord,
+    CharacterRecord,
+)
 
 
 # Custom Fields
@@ -15,11 +25,20 @@ class EntryBooleanField(forms.BooleanField):
         self.required = False
 
 
+class EntryTimeField(forms.TimeField):
+
+    def __init__(self, *args, **kwargs):
+        super(EntryTimeField, self).__init__(*args, **kwargs)
+        timezone.activate(settings.TIME_ZONE)
+        self.initial = timezone.localtime(timezone.now())
+
+
 class EntryDurationField(forms.DurationField):
 
     def __init__(self, *args, **kwargs):
         super(EntryDurationField, self).__init__(*args, **kwargs)
         self.initial = timezone.timedelta()
+
 
 # Detail Record Models and Fields
 detail_records = {
@@ -27,7 +46,7 @@ detail_records = {
     'boolean': {'model': BooleanRecord, 'field': EntryBooleanField},
     'integer': {'model': IntegerRecord, 'field': forms.IntegerField},
     'float': {'model': FloatRecord, 'field': forms.FloatField},
-    'time': {'model': TimeRecord, 'field': forms.TimeField},
+    'time': {'model': TimeRecord, 'field': EntryTimeField},
     'duration': {'model': DurationRecord, 'field': EntryDurationField},
     'character': {'model': CharacterRecord, 'field': forms.CharField},
 }

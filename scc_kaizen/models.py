@@ -68,6 +68,7 @@ class FloatRecord(DetailRecord):
 class TimeRecord(DetailRecord):
 
     detail_metric = models.ForeignKey(DetailMetric, on_delete=models.CASCADE, limit_choices_to={'record_type': 'time'})
+    value = models.TimeField()
 
 
 class DurationRecord(DetailRecord):

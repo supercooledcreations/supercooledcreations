@@ -30,7 +30,6 @@ class BaseMetricListView(LoginRequiredMixin, View):
     def get(self, request, *args, **kwargs):
 
         template_name = 'scc_kaizen/metric_list.html'
-
         context = {
             'metric_list': BaseMetric.objects.filter(user=request.user).order_by('name'),
             'base_metric_form': BaseMetricForm()
