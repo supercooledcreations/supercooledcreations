@@ -1,27 +1,9 @@
 # Imports
-import json, os.path
-
-# Excluded from base settings DEBUG, SECRET_KEY, and DATABASES
+# Add local settings related to the environment
+# will be different based on prodction vs. development settings and operating system
+# variables include (DEBUG, SECRET_KEY, DATABASES etc.)
+from .local_settings import *
 from .base_settings import *
-# Attempt to find production settings
-
-try:
-    with open(os.path.join('/opt/supercooledcreations/production_settings.json')) as file:
-        production_settings = json.load(file)
-    DEBUG = production_settings['DEBUG']
-    SECRET_KEY = production_settings['SECRET_KEY']
-    DATABASES = production_settings['DATABASES']
-    use_production_settings = True
-
-except FileNotFoundError:
-    use_production_settings = False
-
-# If no produciton settings attempt to load local settings
-if not use_production_settings:
-    try:
-        from .local_settings import *
-    except ImportError:
-        print("No settings found")
 
 
 
