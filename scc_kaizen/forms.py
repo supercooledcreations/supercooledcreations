@@ -4,7 +4,7 @@ from django import forms
 from django.utils import timezone
 
 # App
-from .models import BaseMetric, DetailMetric, BaseRecord, BooleanRecord, IntegerRecord, FloatRecord, DurationRecord, CharacterRecord
+from .models import BaseMetric, DetailMetric, BooleanRecord, IntegerRecord, FloatRecord, TimeRecord, DurationRecord, CharacterRecord
 
 
 # Custom Fields
@@ -27,6 +27,7 @@ detail_records = {
     'boolean': {'model': BooleanRecord, 'field': EntryBooleanField},
     'integer': {'model': IntegerRecord, 'field': forms.IntegerField},
     'float': {'model': FloatRecord, 'field': forms.FloatField},
+    'time': {'time': TimeRecord, 'field': forms.TimeField},
     'duration': {'model': DurationRecord, 'field': EntryDurationField},
     'character': {'model': CharacterRecord, 'field': forms.CharField},
 }

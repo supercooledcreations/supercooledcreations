@@ -7,6 +7,7 @@ DETAIL_RECORD_TYPES = (
     ('boolean', "True/False"),
     ('integer', "Count"),
     ('float', "Value"),
+    ('time', "Time of Day"),
     ('duration', "Duration of Time"),
     ('character', "Short Description")
 )
@@ -62,6 +63,11 @@ class FloatRecord(DetailRecord):
 
     detail_metric = models.ForeignKey(DetailMetric, on_delete=models.CASCADE, limit_choices_to={'record_type': 'float'})
     value = models.FloatField()
+
+
+class TimeRecord(DetailRecord):
+
+    detail_metric = models.ForeignKey(DetailMetric, on_delete=models.CASCADE, limit_choices_to={'record_type': 'time'})
 
 
 class DurationRecord(DetailRecord):
