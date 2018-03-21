@@ -21,6 +21,7 @@ INSTALLED_APPS = [
     'scc_standard_user',
     'scc_home',
     'scc_kaizen',
+    'scc_kanban',
 ]
 
 MIDDLEWARE = [

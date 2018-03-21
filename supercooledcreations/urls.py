@@ -12,6 +12,7 @@ urlpatterns = [
     path('user/', include('scc_standard_user.urls', namespace='scc_standard_user')),
     path('home/', include('scc_home.urls', namespace='scc_home')),
     path('kaizen/', include('scc_kaizen.urls', namespace='scc_kaizen')),
+    path('kanban/', include('scc_kanban.urls', namespace='scc_kanban')),
     path('admin/', admin.site.urls),
 ]
 

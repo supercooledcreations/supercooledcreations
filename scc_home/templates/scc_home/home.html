@@ -7,6 +7,7 @@
 <body>
     <div>
         <p><a href="{% url 'scc_kaizen:metric_list' %}">Kaizen</a></p>
+        <p><a href="{% url 'scc_kanban:task_list' %}">Kanban</a></p>
     </div>
     <ul>
     {% for bookmark in bookmark_list %}

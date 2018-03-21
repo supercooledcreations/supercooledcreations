@@ -76,6 +76,7 @@ class BaseMetricDetailView(LoginRequiredMixin, View):
         record_table_header = ['Timestamp']
         for detail_metric in detail_metrics:
             record_table_header.append(detail_metric.name)
+        record_table_header.append('Remove')
 
         # Table Rows
         record_table_rows = []
@@ -91,7 +92,7 @@ class BaseMetricDetailView(LoginRequiredMixin, View):
             )
 
         for base_record in base_records:
-            record_table_row = [base_record.timestamp]
+            record_table_row = {'id': base_record.id, 'timestamp': base_record.timestamp, 'detail_values': []}
             for detail_metric in detail_metrics:
                 detail_record_list = detail_record_qsets[detail_metric.record_type].filter(base_record=base_record, detail_metric=detail_metric)
 
@@ -100,7 +101,7 @@ class BaseMetricDetailView(LoginRequiredMixin, View):
                 else:
                     detail_record_value = 'None'
 
-                record_table_row.append(detail_record_value)
+                record_table_row['detail_values'].append(detail_record_value)
 
             record_table_rows.append(record_table_row)
 
@@ -159,6 +160,13 @@ class BaseMetricDetailView(LoginRequiredMixin, View):
 
             return metric_detail_redirect
         # Return 400 Error
+        elif request.POST['action'] == 'remove_entry':
+            entry_id = request.POST['entry_id']
+            if entry_id:
+                BaseRecord.objects.get(id=entry_id).delete()
+
+            return metric_detail_redirect
+
         else:
             return HttpResponseBadRequest('Request Action not Recognized')
 

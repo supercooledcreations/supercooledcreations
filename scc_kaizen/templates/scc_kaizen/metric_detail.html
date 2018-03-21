@@ -33,9 +33,9 @@
         <h4>Add New Entry</h4>
         {% csrf_token %}
         <input type="hidden" name="action" value="add_new_entry">
-        {{record_entry_form}}
+        {{record_entry_form.as_p}}
 
-        <p><button type="submit">Add Detail</button></p>
+        <p><button type="submit">Add Entry</button></p>
     </form>
 
 
@@ -50,9 +50,18 @@
             </tr>
             {% for row in record_table_rows %}
                 <tr>
-                    {% for item in row %}
+                    <td>{{row.timestamp}}</td>
+                    {% for item in row.detail_values %}
                         <td>{{item}}</td>
                     {% endfor %}
+                    <td>
+                        <form method="post">
+                            {% csrf_token %}
+                            <input type="hidden" name="action" value="remove_entry">
+                            <input type="hidden" name="entry_id" value="{{row.id}}">
+                            <button type="submit">Remove</button>
+                        </form>
+                    </td>
                 </tr>
             {% endfor %}
         </table>
