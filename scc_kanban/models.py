@@ -7,14 +7,13 @@ from django.db import models
 class Task(models.Model):
 
     STATUS_CHOICES = (
-        ('launched', 'Launched'),
+        ('outerspace', 'Launch It!'),
         ('headspace', 'In Headspace'),
         ('desk', 'On Desk'),
-        # Add awaiting action
         ('monitor', 'Monitor'),
         ('board', 'On the Board'),
         ('icebox', 'In the Icebox'),
-        ('graveyard', 'Graveyard'),
+        ('bin', 'Throw it in the Bin'),
     )
 
     user = models.ForeignKey(get_user_model(), on_delete=models.CASCADE)

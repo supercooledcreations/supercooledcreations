@@ -8,13 +8,31 @@
     <a href="{% url 'scc_home:home' %}">Home</a>
     <form method="post">
         {% csrf_token %}
+        <input type="hidden" name="action" value="add_task">
         {{add_task_form}}
         <button type="submit">Add Task</button>
     </form>
-
-    {% for task in task_list %}
-        {{task.name}}
+    <table>
+        <tr>
+            <th>Task</th>
+            <th>Status</th>
+        </tr>
+    {% for task_row in task_list %}
+        <tr>
+            <td>{{task_row.object.name}}</td>
+            <td>
+                <form method="post">
+                    {% csrf_token %}
+                    <input type="hidden" name="action" value="update_task">
+                    <input type="hidden" name="task_id" value="{{task_row.object.id}}">
+                    {{task_row.form.status}}
+                    <button type="submit">Update</button>
+                </form>
+            </td>
+        </tr>
     {% endfor %}
+    </table>
+
 
 </body>
 </html>
